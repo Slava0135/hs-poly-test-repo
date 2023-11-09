@@ -2,7 +2,6 @@
 module Part4.Tasks where
 
 import Util(notImplementedYet)
-import Control.Applicative
 
 -- Перевёрнутый связный список -- хранит ссылку не на последующию, а на предыдущую ячейку
 data ReverseList a = REmpty | (ReverseList a) :< a
