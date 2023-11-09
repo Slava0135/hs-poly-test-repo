@@ -24,12 +24,11 @@ infixl 2 |*|
 -- Заменить переменную `varName` на `replacement`
 -- во всём выражении `expression`
 replaceVar :: String -> Term -> Term -> Term
-replaceVar varName replacement term@(Variable varNameOther)
-   | varName == varNameOther = replacement
-   | otherwise = term
-replaceVar varName replacement term@(IntConstant i) = term
-replaceVar varName replacement (BinaryTerm op lhv rhv) =
-   BinaryTerm op (replaceVar varName replacement lhv) (replaceVar varName replacement rhv)
+replaceVar varName replacement term =
+   case term of
+      Variable other | varName == other -> replacement
+      BinaryTerm op lhv rhv -> BinaryTerm op (replaceVar varName replacement lhv) (replaceVar varName replacement rhv)
+      _ -> term
 
 -- Посчитать значение выражения `Term`
 -- если оно состоит только из констант
