@@ -1,7 +1,6 @@
 module Part1.Tasks where
 
 import Util(notImplementedYet)
-import Data.Fixed
 
 factorial :: Integer -> Integer
 factorial 0 = 1
