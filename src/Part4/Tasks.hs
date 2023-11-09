@@ -1,3 +1,4 @@
+{-# LANGUAGE InstanceSigs #-}
 module Part4.Tasks where
 
 import Util(notImplementedYet)
@@ -16,13 +17,20 @@ rlistToList lst =
 
 -- Реализуйте обратное преобразование
 listToRlist :: [a] -> ReverseList a
-listToRlist = notImplementedYet
+listToRlist = reversed REmpty
+    where reversed rlst [] = rlst
+          reversed rlst (head : tail) = reversed (rlst :< head) tail 
 
 -- Реализуйте все представленные ниже классы (см. тесты)
-instance Show (ReverseList a) where
-    showsPrec = notImplementedYet
-    show = notImplementedYet
+instance Show a => Show (ReverseList a) where
+    show lst = "[" <> showNext lst <> "]"
+        where
+            showNext REmpty = ""
+            showNext (REmpty :< head) = show head
+            showNext (tail :< head) = showNext tail <> "," <> show head
+
 instance Eq (ReverseList a) where
+    (==) :: ReverseList a -> ReverseList a -> Bool
     (==) = notImplementedYet
     (/=) = notImplementedYet
 instance Semigroup (ReverseList a) where
