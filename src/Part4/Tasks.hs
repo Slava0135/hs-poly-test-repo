@@ -29,10 +29,12 @@ instance Show a => Show (ReverseList a) where
             showNext (REmpty :< head) = show head
             showNext (tail :< head) = showNext tail <> "," <> show head
 
-instance Eq (ReverseList a) where
+instance Eq a => Eq (ReverseList a) where
     (==) :: ReverseList a -> ReverseList a -> Bool
-    (==) = notImplementedYet
-    (/=) = notImplementedYet
+    (==) REmpty REmpty = True
+    (==) (tailA :< headA) (tailB :< headB) = headA == headB && tailA == tailB
+    (==) _ _ = False
+    (/=) a b = not (a == b) 
 instance Semigroup (ReverseList a) where
 instance Monoid (ReverseList a) where
 instance Functor ReverseList where
