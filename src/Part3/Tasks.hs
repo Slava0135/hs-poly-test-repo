@@ -34,4 +34,7 @@ nextUniq lst unq =
 -- значению результата применения F к элементам Lst ставит в соответствие список элементов Lst,
 -- приводящих к этому результату. Результат следует представить в виде списка пар.
 grokBy :: (Eq k) => (a -> k) -> [a] -> [(k, [a])]
-grokBy f l = notImplementedYet
+grokBy f l =
+    let possibleResults = uniq $ map f l
+        sameResult r = filter (\x -> f x == r) l
+    in map (\r -> (r, sameResult r)) possibleResults
