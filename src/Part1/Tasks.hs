@@ -1,6 +1,7 @@
 module Part1.Tasks where
 
 import Util(notImplementedYet)
+import Data.List (sort)
 
 factorial :: Integer -> Integer
 factorial 0 = 1
@@ -92,4 +93,11 @@ shapeArea points =
 --  2, если он прямоугольный
 --  -1, если это не треугольник
 triangleKind :: Double -> Double -> Double -> Integer
-triangleKind a b c = notImplementedYet
+triangleKind aa bb cc =
+    let [a, b, c] = sort [aa, bb, cc]
+    in case () of
+        _ | a < 0            -> -1
+        _ | a + b < c        -> -1
+        _ | a^2 + b^2 <  c^2 -> 0
+        _ | a^2 + b^2 >  c^2 -> 1
+        _ | a^2 + b^2 == c^2 -> 2
