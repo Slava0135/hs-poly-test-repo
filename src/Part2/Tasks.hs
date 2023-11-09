@@ -34,4 +34,10 @@ replaceVar varName replacement (BinaryTerm op lhv rhv) =
 -- Посчитать значение выражения `Term`
 -- если оно состоит только из констант
 evaluate :: Term -> Term
-evaluate = notImplementedYet
+evaluate (BinaryTerm op lhv rhv) =
+   case (op, evaluate lhv, evaluate rhv) of
+      (Plus, IntConstant lhv, IntConstant rhv) -> IntConstant (lhv + rhv)
+      (Minus, IntConstant lhv, IntConstant rhv) -> IntConstant (lhv - rhv)
+      (Times, IntConstant lhv, IntConstant rhv) -> IntConstant (lhv * rhv)
+      (_, lhv, rhv) -> BinaryTerm op lhv rhv
+evaluate term = term
