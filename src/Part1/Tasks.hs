@@ -31,10 +31,26 @@ myGCD :: Integer -> Integer -> Integer
 myGCD d 0 = abs d
 myGCD a b = myGCD b (a `mod` b) 
 
+isLeapYear :: Integer -> Bool
+isLeapYear year = (year `mod` 400 == 0) || (year `mod` 100 /= 0 && year `mod` 4 == 0)
+
 -- является ли дата корректной с учётом количества дней в месяце и
 -- вискокосных годов?
 isDateCorrect :: Integer -> Integer -> Integer -> Bool
-isDateCorrect = notImplementedYet
+isDateCorrect dd mm yyyy = dd > 0 && yyyy > 0 && case mm of
+    1  -> dd <= 31
+    2  -> if isLeapYear yyyy then dd <= 29 else dd <= 28
+    3  -> dd <= 31
+    4  -> dd <= 30
+    5  -> dd <= 31
+    6  -> dd <= 30
+    7  -> dd <= 31
+    8  -> dd <= 31
+    9  -> dd <= 30
+    10 -> dd <= 31
+    11 -> dd <= 30
+    12 -> dd <= 31
+    _  -> False
 
 -- возведение числа в степень, duh
 -- готовые функции и плавающую арифметику использовать нельзя
