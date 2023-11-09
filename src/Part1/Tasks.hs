@@ -24,7 +24,7 @@ sinN x n =
 
 -- косинус числа (формула Тейлора)
 myCos :: Double -> Double
-myCos = notImplementedYet
+myCos x = mySin (x + pi/2)
 
 -- наибольший общий делитель двух чисел
 myGCD :: Integer -> Integer -> Integer
