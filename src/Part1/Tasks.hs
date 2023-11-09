@@ -29,7 +29,7 @@ myCos x = mySin (x + pi/2)
 -- наибольший общий делитель двух чисел
 myGCD :: Integer -> Integer -> Integer
 myGCD d 0 = abs d
-myGCD a b = myGCD b (a `mod` b) 
+myGCD a b = myGCD b (a `mod` b)
 
 isLeapYear :: Integer -> Bool
 isLeapYear year = (year `mod` 400 == 0) || (year `mod` 100 /= 0 && year `mod` 4 == 0)
@@ -55,7 +55,10 @@ isDateCorrect dd mm yyyy = dd > 0 && yyyy > 0 && case mm of
 -- возведение числа в степень, duh
 -- готовые функции и плавающую арифметику использовать нельзя
 myPow :: Integer -> Integer -> Integer
-myPow = notImplementedYet
+myPow _ 0 = 1
+myPow x 1 = x
+myPow x p | even p = myPow x (p `div` 2) * myPow x (p `div` 2)
+          | otherwise = x * myPow x (p-1)
 
 -- является ли данное число простым?
 isPrime :: Integer -> Bool
