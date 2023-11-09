@@ -1,10 +1,26 @@
 module Part1.Tasks where
 
 import Util(notImplementedYet)
+import Data.Fixed
+
+factorial :: Integer -> Integer
+factorial 0 = 1
+factorial n = n * factorial (n - 1)
+
+normalizeAngle :: Double -> Double
+normalizeAngle x = x - 2*pi * fromIntegral (round (x / (2*pi)))
 
 -- синус числа (формула Тейлора)
 mySin :: Double -> Double
-mySin = notImplementedYet
+mySin x = sinN (normalizeAngle x) 0
+
+sinN :: Double -> Integer -> Double
+sinN x 0 = x + sinN x 1
+sinN x 9 = 0
+sinN x n =
+    let sign = if even n then 1.0 else -1.0
+        nTwo = 2*n + 1
+    in (sign * (x ^ nTwo) / fromInteger (factorial nTwo)) + sinN x (n + 1)
 
 -- косинус числа (формула Тейлора)
 myCos :: Double -> Double
