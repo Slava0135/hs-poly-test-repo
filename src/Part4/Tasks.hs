@@ -50,9 +50,8 @@ instance Functor ReverseList where
 
 instance Applicative ReverseList where
   pure x = REmpty :< x
-  liftA2 f (tailA :< headA) b = liftA2 f tailA b <> fmap (f headA) b
-  liftA2 f _ _ = REmpty
-
+  (<*>) fs (tail :< head) = (<*>) fs tail <> fmap (\f -> f head) fs 
+  (<*>) _ _ = REmpty
 
 instance Monad ReverseList where
   (>>=) REmpty _ = REmpty
