@@ -64,7 +64,7 @@ myPow x p | even p =
 
 -- является ли данное число простым?
 isPrime :: Integer -> Bool
-isPrime n = all (\x -> n `mod` x /= 0) [2..floor (sqrt (fromIntegral n))]
+isPrime n = all (\x -> n `mod` x /= 0) [2..floor $ sqrt $ fromIntegral n]
 
 type Point2D = (Double, Double)
 
