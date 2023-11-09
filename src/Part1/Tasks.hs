@@ -28,7 +28,8 @@ myCos x = mySin (x + pi/2)
 
 -- наибольший общий делитель двух чисел
 myGCD :: Integer -> Integer -> Integer
-myGCD = notImplementedYet
+myGCD d 0 = abs d
+myGCD a b = myGCD b (a `mod` b) 
 
 -- является ли дата корректной с учётом количества дней в месяце и
 -- вискокосных годов?
