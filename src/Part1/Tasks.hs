@@ -68,11 +68,22 @@ isPrime n = all (\x -> n `mod` x /= 0) [2..(floor $ sqrt $ fromIntegral n)]
 
 type Point2D = (Double, Double)
 
+getX :: Point2D -> Double
+getX (x, _) = x
+
+getY :: Point2D -> Double
+getY (_, y) = y
+
 -- рассчитайте площадь многоугольника по формуле Гаусса
 -- многоугольник задан списком координат
 shapeArea :: [Point2D] -> Double
---shapeArea points = notImplementedYet
-shapeArea = notImplementedYet
+shapeArea points =
+    let n = length points
+        indices = [0..(n-2)]
+    in 0.5 * abs (
+        sum (map (\i -> getX (points !! i) * getY (points !! (i + 1))) indices) + (getX (last points) * getY (head points))
+      - sum (map (\i -> getX (points !! (i + 1)) * getY (points !! i)) indices) - (getX (head points) * getY (last points))
+    )
 
 -- треугольник задан длиной трёх своих сторон.
 -- функция должна вернуть
