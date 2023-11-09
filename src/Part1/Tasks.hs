@@ -57,10 +57,11 @@ isDateCorrect dd mm yyyy = dd > 0 && yyyy > 0 && case mm of
 myPow :: Integer -> Integer -> Integer
 myPow _ 0 = 1
 myPow x 1 = x
-myPow x p | even p =
-                let pow = myPow x (p `div` 2)
-                in pow * pow
-          | otherwise = x * myPow x (p-1)
+myPow x p
+    | even p =
+        let pow = myPow x (p `div` 2)
+        in pow * pow
+    | otherwise = x * myPow x (p-1)
 
 -- является ли данное число простым?
 isPrime :: Integer -> Bool
