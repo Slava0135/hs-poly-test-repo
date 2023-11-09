@@ -24,7 +24,11 @@ mostFreq nums =
 
 -- Дан список lst. Вернуть список элементов из lst без повторений, порядок может быть произвольным.
 uniq :: (Eq a) => [a] -> [a]
-uniq = notImplementedYet
+uniq lst = nextUniq lst []
+nextUniq [] unq = unq
+nextUniq lst unq =
+    let next = head lst
+    in nextUniq (filter (next/=) lst) (unq ++ [next])
 
 -- Функция grokBy принимает на вход список Lst и функцию F и каждому возможному
 -- значению результата применения F к элементам Lst ставит в соответствие список элементов Lst,
