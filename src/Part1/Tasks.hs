@@ -98,6 +98,6 @@ triangleKind aa bb cc =
     in case () of
         _ | a < 0            -> -1
         _ | a + b < c        -> -1
-        _ | a^2 + b^2 <  c^2 -> 0
-        _ | a^2 + b^2 >  c^2 -> 1
+        _ | a^2 + b^2 < c^2  -> 0
+        _ | a^2 + b^2 > c^2  -> 1
         _ | a^2 + b^2 == c^2 -> 2
