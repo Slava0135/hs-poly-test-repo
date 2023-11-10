@@ -23,7 +23,7 @@ myConcatMap :: (a -> [b]) -> [a] -> [b]
 myConcatMap f = myFoldl (\acc x -> acc <> f x) []
 
 myConcat :: [[a]] -> [a]
-myConcat = notImplementedYet
+myConcat = myFoldl (<>) []
 
 myReverse :: [a] -> [a]
 myReverse = notImplementedYet
