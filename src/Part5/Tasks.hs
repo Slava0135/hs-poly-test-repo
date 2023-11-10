@@ -33,5 +33,5 @@ myFilter :: (a -> Bool) -> [a] -> [a]
 myFilter p = myFoldr (\x acc -> if p x then x : acc else acc) []
 
 myPartition :: (a -> Bool) -> [a] -> ([a], [a])
-myPartition p = notImplementedYet
+myPartition p = myFoldr (\x (accL, accR) -> if p x then (x : accL, accR) else (accL, x : accR)) ([], [])
 
