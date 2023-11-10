@@ -30,7 +30,7 @@ myReverse :: [a] -> [a]
 myReverse = myFoldl (\acc x -> x : acc) []
 
 myFilter :: (a -> Bool) -> [a] -> [a]
-myFilter p = notImplementedYet
+myFilter p = myFoldr (\x acc -> if p x then x : acc else acc) []
 
 myPartition :: (a -> Bool) -> [a] -> ([a], [a])
 myPartition p = notImplementedYet
