@@ -1,3 +1,5 @@
+{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
+{-# HLINT ignore "Use foldr" #-}
 module Part5.Tasks where
 
 import Util(notImplementedYet)
@@ -9,7 +11,8 @@ myFoldl f acc (head : tail) = myFoldl f (f acc head) tail
 
 -- Реализуйте правую свёртку
 myFoldr :: (a -> b -> b) -> b -> [a] -> b
-myFoldr = notImplementedYet
+myFoldr f acc [] = acc
+myFoldr f acc (head : tail) = f head (myFoldr f acc tail)
 
 -- Используя реализации свёрток выше, реализуйте все остальные функции в данном файле
 
