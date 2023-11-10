@@ -1,5 +1,6 @@
 {-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
 {-# HLINT ignore "Use foldr" #-}
+{-# HLINT ignore "Avoid lambda" #-}
 module Part5.Tasks where
 
 import Util(notImplementedYet)
@@ -26,7 +27,7 @@ myConcat :: [[a]] -> [a]
 myConcat = myFoldl (<>) []
 
 myReverse :: [a] -> [a]
-myReverse = notImplementedYet
+myReverse = myFoldl (\acc x -> x : acc) []
 
 myFilter :: (a -> Bool) -> [a] -> [a]
 myFilter p = notImplementedYet
