@@ -20,7 +20,7 @@ myMap :: (a -> b) -> [a] -> [b]
 myMap f = myFoldl (\acc x -> acc <> [f x]) []
 
 myConcatMap :: (a -> [b]) -> [a] -> [b]
-myConcatMap f = notImplementedYet
+myConcatMap f = myFoldl (\acc x -> acc <> f x) []
 
 myConcat :: [[a]] -> [a]
 myConcat = notImplementedYet
