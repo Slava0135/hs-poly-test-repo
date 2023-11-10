@@ -17,7 +17,7 @@ myFoldr f acc (head : tail) = f head (myFoldr f acc tail)
 -- Используя реализации свёрток выше, реализуйте все остальные функции в данном файле
 
 myMap :: (a -> b) -> [a] -> [b]
-myMap f = notImplementedYet
+myMap f = myFoldl (\acc x -> acc <> [f x]) []
 
 myConcatMap :: (a -> [b]) -> [a] -> [b]
 myConcatMap f = notImplementedYet
