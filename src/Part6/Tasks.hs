@@ -3,6 +3,7 @@
 module Part6.Tasks where
 
 import Data.Map
+import Data.Sequence (mapWithIndex)
 import Util (notImplementedYet)
 
 -- Разреженное представление матрицы. Все элементы, которых нет в sparseMatrixElements, считаются нулями
@@ -28,6 +29,11 @@ instance Matrix Int where
   (@) m (_, _) = Nothing
   eyeMatrix 1 = 1
 
+splitEvery _ [] = []
+splitEvery n list = first : splitEvery n rest
+  where
+    (first, rest) = Prelude.splitAt n list
+
 instance Matrix [[Int]] where
   (@) m (col, row) =
     if 0 < col && col < length m
@@ -38,7 +44,11 @@ instance Matrix [[Int]] where
                 else Nothing
         )
       else Nothing
-  eyeMatrix w = [[]]
+
+  eyeMatrix w =
+    let flat = Prelude.map (\it -> if it `rem` w == 0 then 1 else 0) [1 .. w * w]
+        unflatten = splitEvery w flat
+     in unflatten
 
 instance Matrix (SparseMatrix Int) where
   (@) m (col, row) = sparseMatrixElements m !? (col, row)
