@@ -1,9 +1,10 @@
 {-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
+
 {-# HLINT ignore "Use foldr" #-}
 {-# HLINT ignore "Avoid lambda" #-}
 module Part5.Tasks where
 
-import Util(notImplementedYet)
+import Util (notImplementedYet)
 
 -- Реализуйте левую свёртку
 myFoldl :: (b -> a -> b) -> b -> [a] -> b
@@ -34,4 +35,3 @@ myFilter p = myFoldr (\x acc -> if p x then x : acc else acc) []
 
 myPartition :: (a -> Bool) -> [a] -> ([a], [a])
 myPartition p = myFoldr (\x (accL, accR) -> if p x then (x : accL, accR) else (accL, x : accR)) ([], [])
-

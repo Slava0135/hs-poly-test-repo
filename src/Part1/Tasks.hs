@@ -1,14 +1,14 @@
 module Part1.Tasks where
 
-import Util(notImplementedYet)
 import Data.List (sort)
+import Util (notImplementedYet)
 
 factorial :: Integer -> Integer
 factorial 0 = 1
 factorial n = n * factorial (n - 1)
 
 normalizeAngle :: Double -> Double
-normalizeAngle x = x - 2*pi * fromIntegral (round (x / (2*pi)))
+normalizeAngle x = x - 2 * pi * fromIntegral (round (x / (2 * pi)))
 
 -- синус числа (формула Тейлора)
 mySin :: Double -> Double
@@ -18,13 +18,13 @@ sinN :: Double -> Integer -> Double
 sinN x 0 = x + sinN x 1
 sinN x 9 = 0
 sinN x n =
-    let sign = if even n then 1.0 else -1.0
-        nTwo = 2*n + 1
-    in (sign * (x ^ nTwo) / fromInteger (factorial nTwo)) + sinN x (n + 1)
+  let sign = if even n then 1.0 else -1.0
+      nTwo = 2 * n + 1
+   in (sign * (x ^ nTwo) / fromInteger (factorial nTwo)) + sinN x (n + 1)
 
 -- косинус числа (формула Тейлора)
 myCos :: Double -> Double
-myCos x = mySin (x + pi/2)
+myCos x = mySin (x + pi / 2)
 
 -- наибольший общий делитель двух чисел
 myGCD :: Integer -> Integer -> Integer
@@ -37,20 +37,21 @@ isLeapYear year = (year `mod` 400 == 0) || (year `mod` 100 /= 0 && year `mod` 4 
 -- является ли дата корректной с учётом количества дней в месяце и
 -- вискокосных годов?
 isDateCorrect :: Integer -> Integer -> Integer -> Bool
-isDateCorrect dd mm yyyy = dd > 0 && yyyy > 0 && case mm of
-    1  -> dd <= 31
-    2  -> if isLeapYear yyyy then dd <= 29 else dd <= 28
-    3  -> dd <= 31
-    4  -> dd <= 30
-    5  -> dd <= 31
-    6  -> dd <= 30
-    7  -> dd <= 31
-    8  -> dd <= 31
-    9  -> dd <= 30
+isDateCorrect dd mm yyyy =
+  dd > 0 && yyyy > 0 && case mm of
+    1 -> dd <= 31
+    2 -> if isLeapYear yyyy then dd <= 29 else dd <= 28
+    3 -> dd <= 31
+    4 -> dd <= 30
+    5 -> dd <= 31
+    6 -> dd <= 30
+    7 -> dd <= 31
+    8 -> dd <= 31
+    9 -> dd <= 30
     10 -> dd <= 31
     11 -> dd <= 30
     12 -> dd <= 31
-    _  -> False
+    _ -> False
 
 -- возведение числа в степень, duh
 -- готовые функции и плавающую арифметику использовать нельзя
@@ -58,14 +59,14 @@ myPow :: Integer -> Integer -> Integer
 myPow _ 0 = 1
 myPow x 1 = x
 myPow x p
-    | even p =
-        let pow = myPow x (p `div` 2)
-        in pow * pow
-    | otherwise = x * myPow x (p-1)
+  | even p =
+      let pow = myPow x (p `div` 2)
+       in pow * pow
+  | otherwise = x * myPow x (p - 1)
 
 -- является ли данное число простым?
 isPrime :: Integer -> Bool
-isPrime n = all (\x -> n `mod` x /= 0) [2..(floor $ sqrt $ fromIntegral n)]
+isPrime n = all (\x -> n `mod` x /= 0) [2 .. (floor $ sqrt $ fromIntegral n)]
 
 type Point2D = (Double, Double)
 
@@ -79,12 +80,15 @@ getY (_, y) = y
 -- многоугольник задан списком координат
 shapeArea :: [Point2D] -> Double
 shapeArea points =
-    let n = length points
-        indices = [0..(n-2)]
-    in 0.5 * abs (
-        sum (map (\i -> getX (points !! i) * getY (points !! (i + 1))) indices) + (getX (last points) * getY (head points))
-      - sum (map (\i -> getX (points !! (i + 1)) * getY (points !! i)) indices) - (getX (head points) * getY (last points))
-    )
+  let n = length points
+      indices = [0 .. (n - 2)]
+   in 0.5
+        * abs
+          ( sum (map (\i -> getX (points !! i) * getY (points !! (i + 1))) indices)
+              + (getX (last points) * getY (head points))
+              - sum (map (\i -> getX (points !! (i + 1)) * getY (points !! i)) indices)
+              - (getX (head points) * getY (last points))
+          )
 
 -- треугольник задан длиной трёх своих сторон.
 -- функция должна вернуть
@@ -94,10 +98,10 @@ shapeArea points =
 --  -1, если это не треугольник
 triangleKind :: Double -> Double -> Double -> Integer
 triangleKind a b c =
-    let [a', b', c'] = sort [a, b, c]
-    in case () of
-        _ | a' < 0            -> -1
-        _ | a' + b' < c'        -> -1
-        _ | a'^2 + b'^2 < c'^2  -> 0
-        _ | a'^2 + b'^2 > c'^2  -> 1
-        _ | a'^2 + b'^2 == c'^2 -> 2
+  let [a', b', c'] = sort [a, b, c]
+   in case () of
+        _ | a' < 0 -> -1
+        _ | a' + b' < c' -> -1
+        _ | a' ^ 2 + b' ^ 2 < c' ^ 2 -> 0
+        _ | a' ^ 2 + b' ^ 2 > c' ^ 2 -> 1
+        _ | a' ^ 2 + b' ^ 2 == c' ^ 2 -> 2
