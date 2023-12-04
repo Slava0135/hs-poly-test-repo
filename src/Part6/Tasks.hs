@@ -5,6 +5,7 @@ module Part6.Tasks where
 import Data.Map
 import Data.Sequence (mapWithIndex)
 import Util (notImplementedYet)
+import qualified Data.Maybe
 
 -- Разреженное представление матрицы. Все элементы, которых нет в sparseMatrixElements, считаются нулями
 data SparseMatrix a = SparseMatrix
@@ -54,9 +55,11 @@ instance Matrix [[Int]] where
   zeroMatrix w h = [[]]
 
 instance Matrix (SparseMatrix Int) where
-  (@) m (col, row) = sparseMatrixElements m !? (col, row)
+  (@) m (col, row) = case (0 < col && col < sparseMatrixWidth m, 0 < row && row < sparseMatrixHeight m) of
+       (True, True) -> Just $ Data.Maybe.fromMaybe 0 (sparseMatrixElements m !? (col, row))
+       _ -> Nothing
   eyeMatrix w = SparseMatrix w w (Data.Map.fromList $ Prelude.map (\idx -> ((idx, idx), 1)) [0 .. (w - 1)])
-  zeroMatrix w h = SparseMatrix w h empty 
+  zeroMatrix w h = SparseMatrix w h empty
 
 -- Реализуйте следующие функции
 -- Единичная матрица
