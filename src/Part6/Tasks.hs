@@ -17,6 +17,7 @@ data SparseMatrix a = SparseMatrix
 -- которые нужны, чтобы реализовать функции, представленные ниже
 class Matrix mx where
   (@) :: mx -> (Int, Int) -> Maybe Int
+  eyeMatrix :: Int -> mx
 
 -- Определите экземпляры данного класса для:
 --  * числа (считается матрицей 1x1)
@@ -25,6 +26,7 @@ class Matrix mx where
 instance Matrix Int where
   (@) m (0, 0) = Just m
   (@) m (_, _) = Nothing
+  eyeMatrix 1 = 1
 
 instance Matrix [[Int]] where
   (@) m (col, row) =
@@ -36,14 +38,16 @@ instance Matrix [[Int]] where
                 else Nothing
         )
       else Nothing
+  eyeMatrix w = [[]]
 
 instance Matrix (SparseMatrix Int) where
   (@) m (col, row) = sparseMatrixElements m !? (col, row)
+  eyeMatrix w = SparseMatrix w w empty
 
 -- Реализуйте следующие функции
 -- Единичная матрица
 eye :: (Matrix m) => Int -> m
-eye w = notImplementedYet
+eye = eyeMatrix
 
 -- Матрица, заполненная нулями
 zero :: (Matrix m) => Int -> Int -> m
