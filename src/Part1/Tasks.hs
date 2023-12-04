@@ -93,11 +93,11 @@ shapeArea points =
 --  2, если он прямоугольный
 --  -1, если это не треугольник
 triangleKind :: Double -> Double -> Double -> Integer
-triangleKind aa bb cc =
-    let [a, b, c] = sort [aa, bb, cc]
+triangleKind a b c =
+    let [a', b', c'] = sort [a, b, c]
     in case () of
-        _ | a < 0            -> -1
-        _ | a + b < c        -> -1
-        _ | a^2 + b^2 < c^2  -> 0
-        _ | a^2 + b^2 > c^2  -> 1
-        _ | a^2 + b^2 == c^2 -> 2
+        _ | a' < 0            -> -1
+        _ | a' + b' < c'        -> -1
+        _ | a'^2 + b'^2 < c'^2  -> 0
+        _ | a'^2 + b'^2 > c'^2  -> 1
+        _ | a'^2 + b'^2 == c'^2 -> 2
