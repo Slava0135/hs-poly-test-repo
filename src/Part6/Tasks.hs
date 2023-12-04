@@ -46,13 +46,13 @@ instance Matrix [[Int]] where
       else Nothing
 
   eyeMatrix w =
-    let flat = Prelude.map (\it -> if it `rem` w == 0 then 1 else 0) [1 .. w * w]
+    let flat = Prelude.map (\it -> if it `rem` (w + 1) == 0 then 1 else 0) [0 .. w * w - 1]
         unflatten = splitEvery w flat
      in unflatten
 
 instance Matrix (SparseMatrix Int) where
   (@) m (col, row) = sparseMatrixElements m !? (col, row)
-  eyeMatrix w = SparseMatrix w w empty
+  eyeMatrix w = SparseMatrix w w (Data.Map.fromList $ Prelude.map (\idx -> ((idx, idx), 1)) [0 .. (w - 1)])
 
 -- Реализуйте следующие функции
 -- Единичная матрица
