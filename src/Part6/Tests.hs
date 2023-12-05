@@ -12,6 +12,7 @@ unit_eye = do
     eye 1 @?= SparseMatrix 1 1 (Data.Map.fromList [((0, 0), one)])
     eye 2 @?= [[one, 0], [0, one]]
     eye 2 @?= SparseMatrix 2 2 (Data.Map.fromList [((0, 0), one), ((1, 1), one)])
+    eye 5 @?= [[one, 0, 0, 0, 0], [0, one, 0, 0, 0], [0, 0, one, 0, 0], [0, 0, 0, one, 0], [0, 0, 0, 0, one]]
 
     where one :: Int; one = 1
 
