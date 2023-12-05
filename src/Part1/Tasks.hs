@@ -3,16 +3,12 @@ module Part1.Tasks where
 import Data.List (sort)
 import Util (notImplementedYet)
 
-factorial :: Integer -> Integer
-factorial 0 = 1
-factorial n = n * factorial (n - 1)
-
-normalizeAngle :: Double -> Double
-normalizeAngle x = x - 2 * pi * fromIntegral (round (x / (2 * pi)))
-
 -- синус числа (формула Тейлора)
 mySin :: Double -> Double
 mySin x = sinN (normalizeAngle x) 0
+  where
+    normalizeAngle :: Double -> Double
+    normalizeAngle x = x - 2 * pi * fromIntegral (round (x / (2 * pi)))
 
 sinN :: Double -> Integer -> Double
 sinN x 0 = x + sinN x 1
@@ -21,6 +17,10 @@ sinN x n =
   let sign = if even n then 1.0 else -1.0
       nTwo = 2 * n + 1
    in (sign * (x ^ nTwo) / fromInteger (factorial nTwo)) + sinN x (n + 1)
+  where
+    factorial :: Integer -> Integer
+    factorial 0 = 1
+    factorial n = n * factorial (n - 1)
 
 -- косинус числа (формула Тейлора)
 myCos :: Double -> Double
@@ -30,9 +30,6 @@ myCos x = mySin (x + pi / 2)
 myGCD :: Integer -> Integer -> Integer
 myGCD d 0 = abs d
 myGCD a b = myGCD b (a `mod` b)
-
-isLeapYear :: Integer -> Bool
-isLeapYear year = (year `mod` 400 == 0) || (year `mod` 100 /= 0 && year `mod` 4 == 0)
 
 -- является ли дата корректной с учётом количества дней в месяце и
 -- вискокосных годов?
@@ -52,6 +49,9 @@ isDateCorrect dd mm yyyy =
     11 -> dd <= 30
     12 -> dd <= 31
     _ -> False
+  where
+    isLeapYear :: Integer -> Bool
+    isLeapYear year = (year `mod` 400 == 0) || (year `mod` 100 /= 0 && year `mod` 4 == 0)
 
 -- возведение числа в степень, duh
 -- готовые функции и плавающую арифметику использовать нельзя
@@ -70,12 +70,6 @@ isPrime n = all (\x -> n `mod` x /= 0) [2 .. (floor $ sqrt $ fromIntegral n)]
 
 type Point2D = (Double, Double)
 
-getX :: Point2D -> Double
-getX (x, _) = x
-
-getY :: Point2D -> Double
-getY (_, y) = y
-
 -- рассчитайте площадь многоугольника по формуле Гаусса
 -- многоугольник задан списком координат
 shapeArea :: [Point2D] -> Double
@@ -89,6 +83,12 @@ shapeArea points =
               - sum (map (\i -> getX (points !! (i + 1)) * getY (points !! i)) indices)
               - (getX (head points) * getY (last points))
           )
+  where
+    getX :: Point2D -> Double
+    getX (x, _) = x
+
+    getY :: Point2D -> Double
+    getY (_, y) = y
 
 -- треугольник задан длиной трёх своих сторон.
 -- функция должна вернуть
