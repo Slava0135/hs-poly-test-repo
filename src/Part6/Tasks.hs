@@ -39,10 +39,10 @@ splitEvery n list = first : splitEvery n rest
 
 instance Matrix [[Int]] where
   (@) m (col, row) =
-    if 0 < col && col < length m
+    if 0 < row && row < length m
       then
-        ( let sublist = m !! col
-           in if 0 < row && row < length sublist
+        ( let sublist = m !! row
+           in if 0 < col && col < length sublist
                 then Just (sublist !! col)
                 else Nothing
         )
