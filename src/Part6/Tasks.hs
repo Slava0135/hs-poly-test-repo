@@ -52,7 +52,10 @@ instance Matrix [[Int]] where
     let flat = Prelude.map (\it -> if it `rem` (w + 1) == 0 then 1 else 0) [0 .. w * w - 1]
         unflatten = splitEvery w flat
      in unflatten
-  zeroMatrix w h = [[]]
+  zeroMatrix w h =
+    let flat = replicate (w*h) 0
+        unflatten = splitEvery w flat
+     in unflatten
 
 instance Matrix (SparseMatrix Int) where
   (@) m (col, row) = case (0 < col && col < sparseMatrixWidth m, 0 < row && row < sparseMatrixHeight m) of
